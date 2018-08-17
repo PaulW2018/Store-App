@@ -1,4 +1,6 @@
 
+import os #access to OS environmeent variables
+
 from flask_jwt import JWT
 from flask import Flask
 from flask_restful import Api 
@@ -10,7 +12,7 @@ from resources.store import Store, StoreList
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')  #use sqlite if locally running on a machine
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turn of Flask modification tracker. 
 app.secret_key = 'jose'
 api = Api(app)
